@@ -1,11 +1,7 @@
 function procesarSolicitud(solicitud) {
-  // Sacamos el primer elemento, que es el nombre del usuario
   const nombreUsuario = solicitud.shift();
 
-  // Agregamos el carné al inicio del arreglo
   solicitud.unshift("Carné de socio");
-
-  // Agregamos el nombre del usuario al final
   solicitud.push(nombreUsuario);
 
   return solicitud;
@@ -13,37 +9,69 @@ function procesarSolicitud(solicitud) {
 
 const formulario = document.getElementById("formulario-solicitud");
 const nombreUsuario = document.getElementById("nombre-usuario");
-const tituloLibro1 = document.getElementById("titulo-libro-1");
-const tituloLibro2 = document.getElementById("titulo-libro-2");
+const libros = document.getElementById("libros");
+const agregarLibro = document.getElementById("agregar-libro");
 const resultadoSolicitud = document.getElementById("resultado-solicitud");
 
 formulario.noValidate = true;
+
+function crearCampoLibro() {
+  const campo = document.createElement("div");
+  campo.className = "libro-campo";
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.name = "titulosLibro";
+  input.setAttribute("aria-label", "Título del libro adicional");
+  input.placeholder = "Escribe el título del libro";
+
+  const eliminar = document.createElement("button");
+  eliminar.type = "button";
+  eliminar.className = "boton-eliminar";
+  eliminar.setAttribute("aria-label", "Eliminar este libro");
+  eliminar.textContent = "🗑";
+  eliminar.addEventListener("click", () => campo.remove());
+
+  campo.append(input, eliminar);
+  return campo;
+}
+
+agregarLibro.addEventListener("click", () => {
+  const campo = crearCampoLibro();
+  libros.appendChild(campo);
+  campo.querySelector("input").focus();
+});
 
 formulario.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
   const nombre = nombreUsuario.value.trim();
   nombreUsuario.value = nombre;
+  const titulos = [...libros.querySelectorAll("input")]
+    .map((input) => input.value.trim())
+    .filter(Boolean);
 
-  if (!nombre) {
-    nombreUsuario.setAttribute("aria-invalid", "true");
+  if (!nombre || titulos.length === 0) {
+    if (!nombre) {
+      nombreUsuario.setAttribute("aria-invalid", "true");
+    } else {
+      nombreUsuario.removeAttribute("aria-invalid");
+    }
     resultadoSolicitud.replaceChildren();
 
     const mensaje = document.createElement("p");
     mensaje.className = "mensaje-error";
-    mensaje.textContent = "Ingresa tu nombre para procesar la solicitud.";
-    resultadoSolicitud.appendChild(mensaje);
-    nombreUsuario.focus();
+    mensaje.textContent = !nombre
+      ? "Ingresa tu nombre para procesar la solicitud."
+      : "Escribe al menos un título de libro para procesar la solicitud.";
+    resultadoSolicitud.append(mensaje);
+    (!nombre ? nombreUsuario : libros.querySelector("input")).focus();
     return;
   }
 
   nombreUsuario.removeAttribute("aria-invalid");
 
-  const solicitud = [
-    nombre,
-    tituloLibro1.value.trim(),
-    tituloLibro2.value.trim()
-  ];
+  const solicitud = [nombre, ...titulos];
   const resultado = procesarSolicitud(solicitud);
 
   resultadoSolicitud.replaceChildren();
@@ -71,4 +99,9 @@ formulario.addEventListener("submit", (evento) => {
   });
 
   resultadoSolicitud.appendChild(lista);
+
+  const textoArray = document.createElement("p");
+  textoArray.className = "resultado-array";
+  textoArray.textContent = `Array procesado: [${resultado.map((elemento) => `"${elemento}"`).join(", ")}]`;
+  resultadoSolicitud.appendChild(textoArray);
 });

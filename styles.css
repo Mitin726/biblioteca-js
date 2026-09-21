@@ -72,6 +72,21 @@ h1 {
   gap: 0.5rem;
 }
 
+.libros {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.libro-campo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.libro-campo input {
+  flex: 1;
+}
+
 label {
   color: var(--carbone);
   font-size: 0.9rem;
@@ -116,6 +131,43 @@ button {
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.boton-secundario {
+  justify-self: start;
+  margin-top: 0.15rem;
+  padding: 0.55rem 0.8rem;
+  color: var(--azul-biblioteca);
+  font-size: 0.9rem;
+  background: transparent;
+  border-color: transparent;
+}
+
+.boton-secundario:hover {
+  color: var(--azul-hover);
+  background: #eef3f7;
+  border-color: #eef3f7;
+  box-shadow: none;
+}
+
+.boton-eliminar {
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0;
+  color: #8c3025;
+  font-size: 1rem;
+  line-height: 1;
+  background: #fff5f3;
+  border-color: #e5b9b2;
+}
+
+.boton-eliminar:hover {
+  color: #ffffff;
+  background: #a33d2f;
+  border-color: #a33d2f;
+  box-shadow: none;
 }
 
 button:hover {
@@ -195,6 +247,19 @@ button:focus-visible {
   font-weight: 600;
 }
 
+.resultado-array {
+  margin: 1rem 0 0;
+  padding: 0.8rem 1rem;
+  color: var(--caoba);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  background: #f7f4ef;
+  border: 1px solid var(--borde);
+  border-radius: 0.5rem;
+}
+
 @media (max-width: 480px) {
   .contenedor {
     padding: 1rem 0.75rem;
@@ -212,5 +277,13 @@ button:focus-visible {
 
   .resultado-item strong {
     text-align: left;
+  }
+
+  .libro-campo {
+    align-items: stretch;
+  }
+
+  .boton-eliminar {
+    height: auto;
   }
 }
