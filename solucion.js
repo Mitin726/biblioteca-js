@@ -17,11 +17,30 @@ const tituloLibro1 = document.getElementById("titulo-libro-1");
 const tituloLibro2 = document.getElementById("titulo-libro-2");
 const resultadoSolicitud = document.getElementById("resultado-solicitud");
 
+formulario.noValidate = true;
+
 formulario.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
+  const nombre = nombreUsuario.value.trim();
+  nombreUsuario.value = nombre;
+
+  if (!nombre) {
+    nombreUsuario.setAttribute("aria-invalid", "true");
+    resultadoSolicitud.replaceChildren();
+
+    const mensaje = document.createElement("p");
+    mensaje.className = "mensaje-error";
+    mensaje.textContent = "Ingresa tu nombre para procesar la solicitud.";
+    resultadoSolicitud.appendChild(mensaje);
+    nombreUsuario.focus();
+    return;
+  }
+
+  nombreUsuario.removeAttribute("aria-invalid");
+
   const solicitud = [
-    nombreUsuario.value.trim(),
+    nombre,
     tituloLibro1.value.trim(),
     tituloLibro2.value.trim()
   ];
@@ -29,10 +48,25 @@ formulario.addEventListener("submit", (evento) => {
 
   resultadoSolicitud.replaceChildren();
 
-  const lista = document.createElement("ul");
-  resultado.forEach((elemento) => {
-    const item = document.createElement("li");
-    item.textContent = elemento;
+  const lista = document.createElement("div");
+  lista.className = "resultado-grid";
+
+  resultado.forEach((elemento, indice) => {
+    const item = document.createElement("article");
+    item.className = `resultado-item resultado-item-${indice}`;
+
+    const etiqueta = document.createElement("span");
+    etiqueta.className = "resultado-etiqueta";
+    etiqueta.textContent = indice === 0
+      ? "Identificación"
+      : indice === resultado.length - 1
+        ? "Usuario"
+        : `Libro ${indice}`;
+
+    const valor = document.createElement("strong");
+    valor.textContent = elemento;
+
+    item.append(etiqueta, valor);
     lista.appendChild(item);
   });
 

@@ -81,6 +81,10 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
+input[aria-invalid="true"] {
+  border-color: #dc2626;
+}
+
 button {
   margin-top: 0.25rem;
   padding: 0.85rem 1.2rem;
@@ -123,13 +127,54 @@ button:active {
   display: none;
 }
 
-.resultado ul {
-  margin: 0.75rem 0 0;
-  padding-left: 1.25rem;
+.resultado-grid {
+  display: grid;
+  gap: 0.75rem;
 }
 
-.resultado li {
-  padding: 0.4rem 0;
+.resultado-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  background: #ffffff;
+  border: 1px solid #dbeafe;
+  border-radius: 0.65rem;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.resultado-item-0 {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.resultado-item-3 {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.resultado-etiqueta {
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.resultado-item strong {
+  color: #1e3a8a;
+  text-align: right;
+}
+
+.resultado-item-3 strong {
+  color: #166534;
+}
+
+.mensaje-error {
+  margin: 0;
+  color: #b91c1c;
+  font-weight: 600;
 }
 
 @media (max-width: 480px) {
