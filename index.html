@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitud de préstamo | Biblioteca</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="contenedor">
+    <section class="tarjeta" aria-labelledby="titulo">
+      <h1 id="titulo">Solicitud de préstamo</h1>
+      <p>Completa los datos para procesar tu solicitud de biblioteca.</p>
+
+      <form id="formulario-solicitud">
+        <div class="campo">
+          <label for="nombre-usuario">Nombre del usuario</label>
+          <input
+            type="text"
+            id="nombre-usuario"
+            name="nombreUsuario"
+            placeholder="Escribe tu nombre"
+            required
+          >
+        </div>
+
+        <div class="campo">
+          <label for="titulo-libro-1">Título del primer libro</label>
+          <input
+            type="text"
+            id="titulo-libro-1"
+            name="tituloLibro1"
+            placeholder="Escribe el título del libro"
+            required
+          >
+        </div>
+
+        <div class="campo">
+          <label for="titulo-libro-2">Título del segundo libro</label>
+          <input
+            type="text"
+            id="titulo-libro-2"
+            name="tituloLibro2"
+            placeholder="Escribe el título del libro"
+            required
+          >
+        </div>
+
+        <button type="submit">Procesar Solicitud</button>
+      </form>
+
+      <div id="resultado-solicitud" class="resultado" aria-live="polite">
+        <!-- Aquí se mostrará el resultado de la solicitud. -->
+      </div>
+    </section>
+  </main>
+
+  <script src="solucion.js" defer></script>
+</body>
+</html>
