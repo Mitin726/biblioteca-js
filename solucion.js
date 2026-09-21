@@ -1,6 +1,6 @@
 function procesarSolicitud(solicitud) {
   // Sacamos el primer elemento, que es el nombre del usuario
-  let nombreUsuario = solicitud.shift();
+  const nombreUsuario = solicitud.shift();
 
   // Agregamos el carné al inicio del arreglo
   solicitud.unshift("Carné de socio");
@@ -11,12 +11,30 @@ function procesarSolicitud(solicitud) {
   return solicitud;
 }
 
-let solicitud = [
-  "María",
-  "Cien años de soledad",
-  "El principito"
-];
+const formulario = document.getElementById("formulario-solicitud");
+const nombreUsuario = document.getElementById("nombre-usuario");
+const tituloLibro1 = document.getElementById("titulo-libro-1");
+const tituloLibro2 = document.getElementById("titulo-libro-2");
+const resultadoSolicitud = document.getElementById("resultado-solicitud");
 
-let resultado = procesarSolicitud(solicitud);
+formulario.addEventListener("submit", (evento) => {
+  evento.preventDefault();
 
-console.log(resultado);
+  const solicitud = [
+    nombreUsuario.value.trim(),
+    tituloLibro1.value.trim(),
+    tituloLibro2.value.trim()
+  ];
+  const resultado = procesarSolicitud(solicitud);
+
+  resultadoSolicitud.replaceChildren();
+
+  const lista = document.createElement("ul");
+  resultado.forEach((elemento) => {
+    const item = document.createElement("li");
+    item.textContent = elemento;
+    lista.appendChild(item);
+  });
+
+  resultadoSolicitud.appendChild(lista);
+});
